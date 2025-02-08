@@ -1,5 +1,6 @@
 <?php
 include '../koneksi.php';
+session_start();
 
 $limit = 5;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
