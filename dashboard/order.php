@@ -2,18 +2,6 @@
 include '../koneksi.php';
 session_start();
 
-// Pastikan user sudah login
-if (!isset($_SESSION['role'])) {
-    echo "<script>alert('Anda harus login terlebih dahulu!'); window.location.href='../auth/login.php';</script>";
-    exit;
-}
-
-// Cek apakah user adalah customer
-if ($_SESSION['role'] === 'customer') {
-    echo "<script>alert('Akses ditolak!'); window.location.href='../home/index.php';</script>";
-    exit;
-}   
-
 $limit = 5;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $start = ($page - 1) * $limit;
