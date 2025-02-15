@@ -17,19 +17,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
 
-        // Verifikasi password dengan password_hash
         if (password_verify($password, $row['password'])) {
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['name'] = $row['name'];
             $_SESSION['email'] = $row['email'];
-
-            // Arahkan berdasarkan role
+            $_SESSION['role'] = $row['role']; 
+            
             if ($row['role'] == 'admin') {
                 header('Location: ../dashboard/dashboard.php');
+                exit;
             } else {
                 header('Location: ../home/index.php');
+                exit;
             }
-            exit;
         } else {
             echo "<script>alert('Password salah!'); window.location='login.php';</script>";
         }
@@ -37,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<script>alert('Email tidak ditemukan!'); window.location='login.php';</script>";
     }
 }
+
 ?>
 
 <!DOCTYPE html>
