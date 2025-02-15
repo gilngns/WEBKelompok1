@@ -6,11 +6,10 @@ $success = false;
 $error = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!isset($_SESSION['email'])) { // Cek apakah user sudah login berdasarkan email
+    if (!isset($_SESSION['email'])) { 
         die("Silakan login terlebih dahulu.");
     }
 
-    // Ambil user_id dari database berdasarkan email yang tersimpan di session
     $email = $_SESSION['email'];
     $query = "SELECT id FROM users WHERE email = '$email'";
     $result = mysqli_query($koneksi, $query);
@@ -26,14 +25,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($type === '') {
         $error = "Silakan pilih jenis keanggotaan.";
     } else {
-        // Cek apakah user sudah terdaftar di membership
         $query = "SELECT id FROM memberships WHERE user_id = $user_id";
         $result = mysqli_query($koneksi, $query);
 
         if (mysqli_num_rows($result) > 0) {
             $error = "Anda sudah terdaftar sebagai member!";
         } else {
-            // Jika belum terdaftar, tambahkan ke database
             $query = "INSERT INTO memberships (user_id, type, status, start_date, end_date) 
                       VALUES ($user_id, '$type', 'pending', NOW(), DATE_ADD(NOW(), INTERVAL 1 MONTH))";
 
@@ -93,13 +90,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <a class="nav-link" href="#edukasi">Edukasi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#produk">Produk</a>
+                        <a class="nav-link" href="produk.php">Produk</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#membership">Membership</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#komunitas">Komunitas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.php">About</a>
                     </li>
                 </ul>
             </div>
@@ -121,7 +121,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         </div>
     </nav>
-
 
     <!-- Carousel -->
     <div id="carouselExampleCaptions" class="carousel slide " data-bs-ride="carousel">
