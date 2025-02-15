@@ -6,13 +6,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = mysqli_real_escape_string($koneksi, $_POST['email']);
     $password = $_POST['password'];
     
-    // Hash password
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    // Tentukan role, misalnya jika email adalah 'admin@gmail.com', maka role adalah admin
     $role = ($email == 'admin@gmail.com') ? 'admin' : 'customer';
 
-    // Query untuk menyimpan data ke database
     $query = "INSERT INTO users (name, email, password, role) 
               VALUES ('$name', '$email', '$hashed_password', '$role')";
     
@@ -23,9 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="id">
